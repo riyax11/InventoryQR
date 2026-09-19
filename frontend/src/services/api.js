@@ -1,238 +1,149 @@
-const API_BASE_URL = "http://127.0.0.1:8000"
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
 
-
-// =========================
-// PRODUCTS
-// =========================
 
 export async function getProducts() {
-  const response = await fetch(
-    `${API_BASE_URL}/products`
-  )
-
-  if (!response.ok) {
-    throw new Error("Unable to load products")
-  }
-
-  return await response.json()
+  const response = await fetch(`${API_BASE_URL}/products`)
+  return response.json()
 }
 
 
 export async function getProduct(barcode) {
   const response = await fetch(
-    `${API_BASE_URL}/products/${encodeURIComponent(barcode)}`
+    `${API_BASE_URL}/products/${barcode}`
   )
 
   if (!response.ok) {
-
-    if (response.status === 404) {
-      throw new Error("Product not registered")
-    }
-
-    throw new Error("Unable to connect to backend")
+    throw new Error("Product not found")
   }
 
-  return await response.json()
+  return response.json()
 }
 
 
-export async function createProduct(productData) {
-
+export async function createProduct(product) {
   const response = await fetch(
     `${API_BASE_URL}/products`,
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(productData),
+      body: JSON.stringify(product)
     }
   )
 
-  const data = await response.json()
-
   if (!response.ok) {
-
-    throw new Error(
-      typeof data.detail === "string"
-        ? data.detail
-        : "Unable to register product"
-    )
+    throw new Error("Failed to create product")
   }
 
-  return data
+  return response.json()
 }
 
 
-// =========================
-// RACKS
-// =========================
-
 export async function getRacks() {
-
-  const response = await fetch(
-    `${API_BASE_URL}/racks`
-  )
-
-  if (!response.ok) {
-    throw new Error("Unable to load racks")
-  }
-
-  return await response.json()
+  const response = await fetch(`${API_BASE_URL}/racks`)
+  return response.json()
 }
 
 
 export async function getRack(rackCode) {
-
   const response = await fetch(
-    `${API_BASE_URL}/racks/${encodeURIComponent(rackCode)}`
+    `${API_BASE_URL}/racks/${rackCode}`
   )
 
   if (!response.ok) {
-
-    if (response.status === 404) {
-      throw new Error("Rack not registered")
-    }
-
-    throw new Error("Unable to connect to backend")
+    throw new Error("Rack not found")
   }
 
-  return await response.json()
+  return response.json()
 }
 
 
-export async function createRack(rackData) {
-
+export async function createRack(rack) {
   const response = await fetch(
     `${API_BASE_URL}/racks`,
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(rackData),
+      body: JSON.stringify(rack)
     }
   )
 
-  const data = await response.json()
-
   if (!response.ok) {
-
-    throw new Error(
-      typeof data.detail === "string"
-        ? data.detail
-        : "Unable to register rack"
-    )
+    throw new Error("Failed to create rack")
   }
 
-  return data
+  return response.json()
 }
 
-
-// =========================
-// INBOUND
-// =========================
 
 export async function inboundProduct(
   barcode,
   rackCode,
   quantity
 ) {
-
   const response = await fetch(
     `${API_BASE_URL}/inventory/inbound?barcode=${encodeURIComponent(
       barcode
     )}&rack_code=${encodeURIComponent(
       rackCode
-    )}&quantity=${encodeURIComponent(
-      quantity
-    )}`,
+    )}&quantity=${quantity}`,
     {
-      method: "POST",
+      method: "POST"
     }
   )
 
-  const data = await response.json()
-
   if (!response.ok) {
-
+    const error = await response.json().catch(() => ({}))
     throw new Error(
-      typeof data.detail === "string"
-        ? data.detail
-        : "Unable to store product"
+      error.detail || "Inbound operation failed"
     )
   }
 
-  return data
+  return response.json()
 }
 
-
-// =========================
-// OUTBOUND
-// =========================
 
 export async function outboundProduct(
   barcode,
   quantity
 ) {
-
   const response = await fetch(
     `${API_BASE_URL}/inventory/outbound?barcode=${encodeURIComponent(
       barcode
-    )}&quantity=${encodeURIComponent(
-      quantity
-    )}`,
+    )}&quantity=${quantity}`,
     {
-      method: "POST",
+      method: "POST"
     }
   )
 
-  const data = await response.json()
-
   if (!response.ok) {
-
+    const error = await response.json().catch(() => ({}))
     throw new Error(
-      typeof data.detail === "string"
-        ? data.detail
-        : "Unable to dispatch product"
+      error.detail || "Outbound operation failed"
     )
   }
 
-  return data
+  return response.json()
 }
 
 
-// =========================
-// INVENTORY
-// =========================
-
 export async function getInventory() {
-
   const response = await fetch(
     `${API_BASE_URL}/inventory`
   )
 
-  if (!response.ok) {
-    throw new Error("Unable to load inventory")
-  }
-
-  return await response.json()
+  return response.json()
 }
 
 
-// =========================
-// MOVEMENTS
-// =========================
-
 export async function getMovements() {
-
   const response = await fetch(
     `${API_BASE_URL}/movements`
   )
 
-  if (!response.ok) {
-    throw new Error("Unable to load movement history")
-  }
-
-  return await response.json()
+  return response.json()
 }
