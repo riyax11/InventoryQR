@@ -885,3 +885,92 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ---------------- INNER PAGES (master data, inventory, scan, QR) ---------------- */
+
+.page-container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 26px 22px 70px;
+}
+
+.page-header {
+  margin-bottom: 26px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  letter-spacing: -0.6px;
+}
+
+.page-header .back-button {
+  margin: 0 0 22px;
+  padding: 9px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #c7cdd6;
+  font-size: 13px;
+}
+
+.page-header .back-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.page-subtitle {
+  margin: 0;
+  color: #9aa8bc;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.info-card {
+  margin-bottom: 18px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.info-card label {
+  display: block;
+  color: #c7cdd6;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.error-card,
+.success-card {
+  padding: 13px 15px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.error-card {
+  border: 1px solid rgba(255, 107, 107, 0.35);
+  background: rgba(255, 107, 107, 0.08);
+  color: #ff9b9b;
+}
+
+.success-card {
+  border: 1px solid rgba(121, 226, 168, 0.35);
+  background: rgba(121, 226, 168, 0.08);
+  color: #79e2a8;
+}
+
+.scanner-box {
+  width: 100%;
+  min-height: 280px;
+  margin: 16px 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: #05080d;
+}
+
+.primary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

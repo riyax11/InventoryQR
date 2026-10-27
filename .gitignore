@@ -1,9 +1,19 @@
+# Python
 __pycache__/
 *.pyc
 venv/
 .venv/
+
+# Local database (created automatically on first run)
 backend/inventory.db
+
+# Node
 node_modules/
 dist/
+
+# Local settings
+.env
+
+# OS files
 .DS_Store
 Thumbs.db
